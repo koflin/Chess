@@ -62,7 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Chess.cs" />
-    <Compile Include="Assets\Scripts\Pieces.cs" />
+    <Compile Include="Assets\Scripts\HighlightingManager.cs" />
+    <Compile Include="Assets\Scripts\Marker.cs" />
+    <Compile Include="Assets\Scripts\Piece.cs" />
+    <Compile Include="Assets\Scripts\PieceManager.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/colin/Documents/GitHub/Chess/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

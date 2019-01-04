@@ -9,7 +9,23 @@ public class Chess : MonoBehaviour {
     public Tilemap hightlighting;
     public Tilemap pieces;
 
-    public Pieces pieceManager;
+    public HighlightingManager highlightingManager;
+    public PieceManager pieceManager;
+
+    public static List<Vector2Int> GetFreeFieldPositions()
+    {
+        List<Vector2Int> allFields = new List<Vector2Int>();
+
+        for (int x = -4; x < 5; x++)
+        {
+            for (int y = -4; y < 5; y++)
+            {
+                allFields.Add(new Vector2Int(x, y));
+            }
+        }
+
+        return allFields;
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +38,12 @@ public class Chess : MonoBehaviour {
 	}
 
     #region Events
-    public void OnPieceChosen(Vector2Int field, Pieces.Piece piece, bool white)
+    public void OnPieceChosen(Vector2Int field, Piece piece)
+    {
+        
+    }
+
+    public void OnMarkerChosen(Vector2Int field, Marker marker)
     {
 
     }
@@ -37,7 +58,7 @@ public class Chess : MonoBehaviour {
         //Wenn eine Figur angeklickt wurde
         if (pieces.HasTile(new Vector3Int((int)position.x, (int)position.y, 0)))
         {
-            Debug.Log("clicked");
+            Debug.Log(position);
         }
     }
 }
