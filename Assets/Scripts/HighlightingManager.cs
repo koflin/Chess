@@ -6,15 +6,53 @@ using UnityEngine.Tilemaps;
 public class HighlightingManager : MonoBehaviour {
 
     public Chess chess;
+    public TileBase moveMarker;
+    public TileBase captureMarker;
+    public TileBase checkMarker;
+
+    public Tilemap tilemap;
+
+    private void Start()
+    {
+        tilemap = GetComponent<Tilemap>();
+    }
 
     //Wird aufgerufen wenn ein Marker angeklickt wurde
     private void OnMouseDown()
     {
         Vector3 positionRaw = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int position = new Vector3Int((int)positionRaw.x, (int)positionRaw.y, 0);
+        Vector2Int position = new Vector2Int((int)positionRaw.x, (int)positionRaw.y);
 
-        TileBase tileBase = GetComponent<Tilemap>().GetTile(position);
+        Field field = chess.GetField(position);
+        if (field != null)
+        {
+            if (field.Marker != null)
+            {
+                chess.OnMarkerChosen(chess.GetField(position));
+            }
+        }
+    }
 
-        chess.OnMarkerChosen(new Vector2Int(position.x, position.y), new Marker(tileBase));
+    public void ShowOption(Field field)
+    {
+        switch (field.Marker.Type)
+        {
+            case MarkerType.MOVE:
+                tilemap.SetTile(tilemap.WorldToCell(field.Get3DPosition()), moveMarker);
+                break;
+
+            case MarkerType.CAPTURE:
+                tilemap.SetTile(tilemap.WorldToCell(field.Get3DPosition()), captureMarker);
+                break;
+
+            case MarkerType.CHECK:
+                tilemap.SetTile(tilemap.WorldToCell(field.Get3DPosition()), checkMarker);
+                break;
+        }
+    }
+
+    public void ClearAllOptions()
+    {
+        tilemap.ClearAllTiles();
     }
 }

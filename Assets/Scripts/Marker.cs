@@ -1,35 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-public class Marker  {
+public class Marker {
 
-	public enum Color
+    public bool IsChoosable { get; }
+    public MarkerType Type { get; }
+
+	public Marker(MarkerType type)
     {
-        NOT_FOUND,
-        RED,
-        GREEN
-    }
-
-    public TileBase tileBase;
-
-    public Marker(TileBase tileBase)
-    {
-        this.tileBase = tileBase;
-    }
-
-    public Color GetColor()
-    {
-        switch (tileBase.name.Split('_')[0])
+        if (type == MarkerType.CHECK)
         {
-            case "red":
-                return Color.RED;
-
-            case "green":
-                return Color.GREEN;
+            this.IsChoosable = false;
         }
 
-        return Color.NOT_FOUND;
+        else
+        {
+            this.IsChoosable = true;
+        }
+
+        this.Type = type;
     }
+}
+
+public enum MarkerType
+{
+    MOVE,
+    CAPTURE,
+    CHECK
 }
